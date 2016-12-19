@@ -4,8 +4,10 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import ua.in.gnatyuk.ui.MainController;
+import org.springframework.context.annotation.Scope;
 import ua.in.gnatyuk.Application;
+import ua.in.gnatyuk.ui.MainController;
+import ua.in.gnatyuk.ui.PersonalCardController;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -25,6 +27,11 @@ public class ConfigurationControllers {
         return loadView("fxml/main.fxml");
     }
 
+    @Bean(name = "personalCard")
+    @Scope("prototype")
+    public View getPersonalCard() throws IOException {
+        return loadView("fxml/personal_card.fxml");
+    }
     /**
      * Именно благодаря этому методу мы добавили контроллер в контекст спринга,
      * и заставили его сделать произвести все необходимые инъекции.
@@ -32,6 +39,11 @@ public class ConfigurationControllers {
     @Bean
     public MainController getMainController() throws IOException {
         return (MainController) getMainView().getController();
+    }
+
+    @Bean
+    public PersonalCardController getPersonalCardController() throws IOException {
+        return (PersonalCardController) getPersonalCard().getController();
     }
 
     /**

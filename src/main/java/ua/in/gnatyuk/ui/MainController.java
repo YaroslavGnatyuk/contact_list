@@ -3,63 +3,51 @@ package ua.in.gnatyuk.ui;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.Scene;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Stage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import ua.in.gnatyuk.configuration.ConfigurationControllers;
 import ua.in.gnatyuk.entity.Contact;
 import ua.in.gnatyuk.service.ContactService;
 
 import javax.annotation.PostConstruct;
 import java.util.List;
 
-/**
- * Date: 27.08.15
- * Time: 11:10
- *
- * @author Ruslan Molchanov (ruslanys@gmail.com)
- * @author http://mruslan.com
- */
-@SuppressWarnings("SpringJavaAutowiringInspection")
 public class MainController {
 
     private Logger logger = LoggerFactory.getLogger(MainController.class);
 
-    // Инъекции Spring
-    @Autowired private ContactService contactService;
+    @Autowired
+    private ContactService contactService;
 
-    // Инъекции JavaFX
-    @FXML private TableView<Contact> table;
-    @FXML private TextField txtName;
-    @FXML private TextField txtPhone;
-    @FXML private TextField txtEmail;
+    @Autowired
+    @Qualifier("personalCard")
+    ConfigurationControllers.View personalCard;
 
-    // Variables
+    Stage personalCardStage;
+
+    @FXML
+    private TableView<Contact> table;
+    @FXML
+    private TextField txtName;
+    @FXML
+    private TextField txtPhone;
+    @FXML
+    private TextField txtEmail;
+
     private ObservableList<Contact> data;
 
-    /**
-     * Инициализация контроллера от JavaFX.
-     * Метод вызывается после того как FXML загрузчик произвел инъекции полей.
-     *
-     * Обратите внимание, что имя метода <b>обязательно</b> должно быть "initialize",
-     * в противном случае, метод не вызовется.
-     *
-     * Также на этом этапе еще отсутствуют бины спринга
-     * и для инициализации лучше использовать метод,
-     * описанный аннотацией @PostConstruct,
-     * который вызовется спрингом, после того, как им будут произведены все инъекции.
-     * {@link MainController#init()}
-     */
     @FXML
     public void initialize() {
     }
 
-    /**
-     * На этом этапе уже произведены все возможные инъекции.
-     */
     @SuppressWarnings("unchecked")
     @PostConstruct
     public void init() {
@@ -85,10 +73,6 @@ public class MainController {
         table.setItems(data);
     }
 
-    /**
-     * Метод, вызываемый при нажатии на кнопку "Добавить".
-     * Привязан к кнопке в FXML файле представления.
-     */
     @FXML
     public void addContact() {
         Contact contact = new Contact(txtName.getText(), txtPhone.getText(), txtEmail.getText());
@@ -99,5 +83,23 @@ public class MainController {
         txtName.setText("");
         txtPhone.setText("");
         txtEmail.setText("");
+    }
+
+    @FXML
+    public void openPersonalCard() {
+        setUpPersonalData();
+        if(personalCardStage == null) {
+            personalCardStage = new Stage();
+            personalCardStage.setScene(new Scene(personalCard.getView()));
+            personalCardStage.show();
+        }else {
+            personalCardStage.show();
+        }
+    }
+
+    private void setUpPersonalData(){
+        Contact contact = table.getSelectionModel().getSelectedItem();
+        PersonalCardController cardController = (PersonalCardController) personalCard.getController();
+        cardController.setAllPersonalData(contact);
     }
 }
