@@ -4,21 +4,12 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Scope;
-import ua.in.gnatyuk.Application;
 import ua.in.gnatyuk.ui.MainController;
 import ua.in.gnatyuk.ui.PersonalCardController;
 
 import java.io.IOException;
 import java.io.InputStream;
 
-/**
- * Date: 27.08.15
- * Time: 11:04
- *
- * @author Ruslan Molchanov (ruslanys@gmail.com)
- * @author http://mruslan.com
- */
 @Configuration
 public class ConfigurationControllers {
 
@@ -28,14 +19,10 @@ public class ConfigurationControllers {
     }
 
     @Bean(name = "personalCard")
-    @Scope("prototype")
     public View getPersonalCard() throws IOException {
         return loadView("fxml/personal_card.fxml");
     }
-    /**
-     * Именно благодаря этому методу мы добавили контроллер в контекст спринга,
-     * и заставили его сделать произвести все необходимые инъекции.
-     */
+
     @Bean
     public MainController getMainController() throws IOException {
         return (MainController) getMainView().getController();
@@ -46,11 +33,6 @@ public class ConfigurationControllers {
         return (PersonalCardController) getPersonalCard().getController();
     }
 
-    /**
-     * Самый обыкновенный способ использовать FXML загрузчик.
-     * Как раз-таки на этом этапе будет создан объект-контроллер,
-     * произведены все FXML инъекции и вызван метод инициализации контроллера.
-     */
     protected View loadView(String url) throws IOException {
         InputStream fxmlStream = null;
         try {
@@ -65,10 +47,6 @@ public class ConfigurationControllers {
         }
     }
 
-    /**
-     * Класс - оболочка: контроллер мы обязаны указать в качестве бина,
-     * а view - представление, нам предстоит использовать в точке входа {@link Application}.
-     */
     public class View {
         private Parent view;
         private Object controller;

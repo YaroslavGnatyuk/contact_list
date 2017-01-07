@@ -22,16 +22,20 @@ import java.util.List;
 
 public class MainController {
 
-    private Logger logger = LoggerFactory.getLogger(MainController.class);
+    private Logger log = LoggerFactory.getLogger(MainController.class);
 
     @Autowired
     private ContactService contactService;
 
     @Autowired
     @Qualifier("personalCard")
-    ConfigurationControllers.View personalCard;
+    private ConfigurationControllers.View personalCardView;
 
-    Stage personalCardStage;
+    private Stage personalCardStage;
+
+    ObservableList<Contact> getData() {
+        return data;
+    }
 
     @FXML
     private TableView<Contact> table;
@@ -51,10 +55,10 @@ public class MainController {
     @SuppressWarnings("unchecked")
     @PostConstruct
     public void init() {
+
         List<Contact> contacts = contactService.findAll();
         data = FXCollections.observableArrayList(contacts);
 
-        // Столбцы таблицы
         TableColumn<Contact, String> idColumn = new TableColumn<>("ID");
         idColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
 
@@ -69,7 +73,6 @@ public class MainController {
 
         table.getColumns().setAll(idColumn, nameColumn, phoneColumn, emailColumn);
 
-        // Данные таблицы
         table.setItems(data);
     }
 
@@ -79,27 +82,34 @@ public class MainController {
         contactService.save(contact);
         data.add(contact);
 
-        // чистим поля
-        txtName.setText("");
-        txtPhone.setText("");
-        txtEmail.setText("");
+        txtName.clear();
+        txtPhone.clear();
+        txtEmail.clear();
     }
 
     @FXML
     public void openPersonalCard() {
-        setUpPersonalData();
-        if(personalCardStage == null) {
+        Contact contact = table.getSelectionModel().getSelectedItem(); //I can get here NPE because the row can be empty in table
+        if (contact == null) {
+            return;
+        }
+
+        table.getSelectionModel().clearSelection();
+
+        if (personalCardStage == null) {
             personalCardStage = new Stage();
-            personalCardStage.setScene(new Scene(personalCard.getView()));
+            personalCardStage.setScene(new Scene(personalCardView.getView()));
+            setupPersonalData(contact);
             personalCardStage.show();
-        }else {
+        } else {
+            setupPersonalData(contact);
             personalCardStage.show();
         }
     }
 
-    private void setUpPersonalData(){
-        Contact contact = table.getSelectionModel().getSelectedItem();
-        PersonalCardController cardController = (PersonalCardController) personalCard.getController();
-        cardController.setAllPersonalData(contact);
+    private void setupPersonalData(Contact contact) throws NullPointerException {
+        PersonalCardController personalCardController = (PersonalCardController) personalCardView.getController();
+        personalCardController.setPersonalCard(personalCardStage);
+        personalCardController.setAllPersonalData(contact);
     }
 }

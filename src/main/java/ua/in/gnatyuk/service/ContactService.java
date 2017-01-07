@@ -17,4 +17,9 @@ public interface ContactService {
 
     List<Contact> findAll();
 
+    void deleteByID(long id);
+
+    void delete(Contact contact);
+
+    Contact findOne(long id);
 }

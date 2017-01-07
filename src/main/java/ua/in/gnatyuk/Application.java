@@ -9,7 +9,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Lazy;
 import ua.in.gnatyuk.configuration.ConfigurationControllers;
 
-@Lazy
+@Lazy(value = false)
 @SpringBootApplication
 public class Application extends AbstractJavaFxApplicationSupport {
 
@@ -18,12 +18,16 @@ public class Application extends AbstractJavaFxApplicationSupport {
 
     @Qualifier("mainView")
     @Autowired
-    private ConfigurationControllers.View view;
+    private ConfigurationControllers.View mainView;
+
+    @Autowired
+    @Qualifier("personalCard")
+    ConfigurationControllers.View personalCard;
 
     @Override
     public void start(Stage stage) throws Exception {
         stage.setTitle(windowTitle);
-        stage.setScene(new Scene(view.getView()));
+        stage.setScene(new Scene(mainView.getView()));
         stage.setResizable(true);
         stage.centerOnScreen();
         stage.show();
