@@ -6,11 +6,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Lazy;
 import ua.in.gnatyuk.configuration.ConfigurationControllers;
 
 @Lazy(value = false)
 @SpringBootApplication
+@ComponentScan("ua.in.gnatyuk")
 public class Application extends AbstractJavaFxApplicationSupport {
 
     @Value("${ui.title:JavaFX приложение}")//
