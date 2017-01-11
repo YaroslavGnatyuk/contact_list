@@ -22,13 +22,14 @@ import static junit.framework.TestCase.assertTrue;
 public class ApplicationTests {
 	@Autowired
 	private PhotoRepository photoRepository;
-	private String photosId;
+	private String photosName = "my_linux.jpg";
 
+//	@Ignore
 	@Test
 	public void uploadPhotoToMyGoogleDrive(){
-		File photo = new File("/home/yroslav/Downloads/monster_3-wallpaper-1920x1200.jpg");
-		assertNotNull(photosId = photoRepository.upload(photo));
-		System.out.println(photosId);
+		File photo = new File("D:\\Books\\prj\\contact_list\\src\\main\\resources\\img\\" + photosName);
+		assertNotNull(photoRepository.upload(photo));
+
 	}
 
 	@Ignore
@@ -36,18 +37,21 @@ public class ApplicationTests {
 	public void downLoadPhoto(){
 		try {
 			Thread.sleep(5000);
-			File photo = photoRepository.download(photosId);
+			String photosID = photoRepository.findIDByFileName(photosName);
+			File photo = photoRepository.download(photosID);
 			assertTrue(photo != null);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
 	}
 
+	@Ignore
 	@Test
 	public void deletePhoto(){
 		try {
 			Thread.sleep(5000);
-			assertTrue(photoRepository.delete(photosId));
+			String photosID = photoRepository.findIDByFileName(photosName);
+			assertTrue(photoRepository.delete(photosID));
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}

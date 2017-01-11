@@ -7,7 +7,10 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="404.0" prefWidth="249.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ua.in.gnatyuk.ui.PersonalCardController">
    <children>
-      <ImageView fx:id="photo" fitHeight="216.0" fitWidth="220.0" layoutX="15.0" layoutY="11.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="photo" fitHeight="227.0" fitWidth="241.0" layoutX="4.0" layoutY="3.0" pickOnBounds="true" smooth="false">
+         <image>
+            <Image url="@/img/my_linux.jpg" />
+         </image></ImageView>
       <Label fx:id="fullName" ellipsisString="" layoutX="14.0" layoutY="231.0" prefHeight="30.0" prefWidth="220.0" text="Full name" textAlignment="CENTER" />
       <Label fx:id="telephone" ellipsisString="" layoutX="15.0" layoutY="276.0" prefHeight="30.0" prefWidth="220.0" text="Telephone" textAlignment="CENTER" />
       <Label fx:id="email" ellipsisString="" layoutX="15.0" layoutY="318.0" prefHeight="30.0" prefWidth="220.0" text="E-mail" textAlignment="CENTER" />

@@ -66,7 +66,7 @@ public class MyGoogleDrive{
     public static Credential authorize() throws IOException {
         // Load client secrets.
         InputStream in =
-                MyGoogleDrive.class.getResourceAsStream("/credentials/client_secret.json");
+                MyGoogleDrive.class.getResourceAsStream("/client_secret.json");
         GoogleClientSecrets clientSecrets =
                 GoogleClientSecrets.load(JSON_FACTORY, new InputStreamReader(in));
 
