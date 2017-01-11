@@ -6,16 +6,12 @@ import com.google.api.client.extensions.jetty.auth.oauth2.LocalServerReceiver;
 import com.google.api.client.googleapis.auth.oauth2.GoogleAuthorizationCodeFlow;
 import com.google.api.client.googleapis.auth.oauth2.GoogleClientSecrets;
 import com.google.api.client.googleapis.javanet.GoogleNetHttpTransport;
-import com.google.api.client.http.FileContent;
 import com.google.api.client.http.HttpTransport;
 import com.google.api.client.json.JsonFactory;
 import com.google.api.client.json.jackson2.JacksonFactory;
 import com.google.api.client.util.store.FileDataStoreFactory;
 import com.google.api.services.drive.Drive;
 import com.google.api.services.drive.DriveScopes;
-import com.google.api.services.drive.model.File;
-import com.google.api.services.drive.model.FileList;
-import com.google.api.services.drive.model.ParentReference;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -24,9 +20,11 @@ import java.util.Arrays;
 import java.util.List;
 
 public class MyGoogleDrive{
+    public static final String ID_FOLDER_WITH_PHOTO = "0BzoryDRDGHoLdy1vZW5Wc0ZnbDA";
+    public static final String MIME_TYPE_FOR_PHOTO = "image/jpeg";
     /** Application name. */
     private static final String APPLICATION_NAME =
-            "Drive API Java MyGoogleDrive";
+            "Drive API Java Quickstart";
 
     /** Directory to store user credentials for this application. */
     private static final java.io.File DATA_STORE_DIR = new java.io.File(
@@ -65,10 +63,10 @@ public class MyGoogleDrive{
      * @return an authorized Credential object.
      * @throws IOException
      */
-    private static Credential authorize() throws IOException {
+    public static Credential authorize() throws IOException {
         // Load client secrets.
         InputStream in =
-                MyGoogleDrive.class.getResourceAsStream("/client_secret.json");
+                MyGoogleDrive.class.getResourceAsStream("/credentials/client_secret.json");
         GoogleClientSecrets clientSecrets =
                 GoogleClientSecrets.load(JSON_FACTORY, new InputStreamReader(in));
 
@@ -91,71 +89,11 @@ public class MyGoogleDrive{
      * @return an authorized Drive client service
      * @throws IOException
      */
-    public static Drive getDriveService() throws IOException {
+    public Drive getDriveService() throws IOException {
         Credential credential = authorize();
         return new Drive.Builder(
                 HTTP_TRANSPORT, JSON_FACTORY, credential)
                 .setApplicationName(APPLICATION_NAME)
                 .build();
     }
-
-    private File insertFile(Drive service, String title, String description,
-                                   String parentId, String mimeType, String filename) {
-        // File's metadata.
-        File body = new File();
-        body.setTitle(title);
-        body.setDescription(description);
-        body.setMimeType(mimeType);
-
-        // Set the parent folder.
-        if (parentId != null && parentId.length() > 0) {
-            body.setParents(
-                    Arrays.asList(new ParentReference().setId(parentId)));
-        }
-
-        // File's content.
-        java.io.File fileContent = new java.io.File(filename);
-        FileContent mediaContent = new FileContent(mimeType, fileContent);
-        try {
-            File file = service.files().insert(body, mediaContent).execute();
-            // Uncomment the following line to print the File ID.
-            // System.out.println("File ID: " + file.getId());
-
-            return file;
-        } catch (IOException e) {
-            System.out.println("An error occured: " + e);
-            return null;
-        }
-    }
-
-      /*public static void main(String[] args) throws IOException {
-         // Build a new authorized API client service.
-         Drive service = getDriveService();
-          // Print the names and IDs for up to 10 files.
-          FileList result = service.files().list()
-                 .setMaxResults(Integer.MAX_VALUE)
-                 .execute();
-          long count = result.getItems().stream().filter(e->e.getTitle().equals("DP_1M_DMKD_clients.zip")).count();
-         System.out.println("I have found: " + count + " Total files was found: " + result.getItems().size());
-     }*/
-
-    public static void main(String[] args) throws IOException {
-        // Build a new authorized API client service.
-        Drive service = getDriveService();
-
-        // Print the names and IDs for up to 10 files.
-        FileList result = service.files().list()
-                .setMaxResults(10)
-                .execute();
-        List<File> files = result.getItems();
-        if (files == null || files.size() == 0) {
-            System.out.println("No files found.");
-        } else {
-            System.out.println("Files:");
-            for (File file : files) {
-                System.out.printf("%s (%s)\n", file.getTitle(), file.getId());
-            }
-        }
-    }
-
 }
