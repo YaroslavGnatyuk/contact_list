@@ -22,7 +22,7 @@ public class GoogleDrivePhotoRepositoryImpl implements PhotoRepository {
     private MyGoogleDrive googleDrive;
 
     @Override
-    public String upload(java.io.File photo) {
+    public String uploadPhoto(java.io.File photo) {
         try {
             Drive drive = googleDrive.getDriveService();
 
@@ -41,7 +41,7 @@ public class GoogleDrivePhotoRepositoryImpl implements PhotoRepository {
     }
 
     @Override
-    public boolean delete(String photosId) {
+    public boolean deletePhoto(String photosId) {
         try {
             Drive drive = googleDrive.getDriveService();
             File file = drive.files().get(photosId).execute();
@@ -56,7 +56,7 @@ public class GoogleDrivePhotoRepositoryImpl implements PhotoRepository {
     }
 
     @Override
-    public java.io.File download(String photosId) {
+    public java.io.File downloadPhoto(String photosId) {
         try {
             Drive drive = googleDrive.getDriveService();
             java.io.File tempFileForPhoto = java.io.File.createTempFile("photo","tmp");
@@ -71,7 +71,7 @@ public class GoogleDrivePhotoRepositoryImpl implements PhotoRepository {
     }
 
     @Override
-    public String findIDByFileName(String fileName) {
+    public String getFileIDByFileName(String fileName) {
         try {
             Drive drive = googleDrive.getDriveService();
             Optional<File> resultOfSearch = drive.files().list().execute().getItems().stream().filter(e->e.getTitle().equals(fileName)).findFirst();

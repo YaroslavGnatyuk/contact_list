@@ -4,13 +4,6 @@ import ua.in.gnatyuk.entity.Contact;
 
 import java.util.List;
 
-/**
- * Date: 27.08.15
- * Time: 17:22
- *
- * @author Ruslan Molchanov (ruslanys@gmail.com)
- * @author http://mruslan.com
- */
 public interface ContactService {
 
     Contact save(Contact contact);
@@ -22,4 +15,14 @@ public interface ContactService {
     void delete(Contact contact);
 
     Contact findOne(long id);
+
+    void updateContact(Contact contact);
+
+    String uploadPhoto(java.io.File photo);
+
+    boolean deletePhoto(String photo);
+
+    java.io.File downloadPhoto(String photosId);
+
+    String getFileIDByFileName(String fileName);
 }

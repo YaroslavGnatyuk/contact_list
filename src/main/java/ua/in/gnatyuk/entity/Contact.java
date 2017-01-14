@@ -27,7 +27,17 @@ public class Contact implements Serializable {
     @Column(unique = true)
     private String email;
 
+    @Column(unique = true, name = "google_drive_file_id")
+    private String googleDriveFileId;
+
     public Contact() {
+    }
+
+    public Contact(String name, String phone, String email, String googleDriveFileID) {
+        this.name = name;
+        this.phone = phone;
+        this.email = email;
+        this.googleDriveFileId = googleDriveFileID;
     }
 
     public Contact(String name, String phone, String email) {
@@ -66,5 +76,13 @@ public class Contact implements Serializable {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getGoogleDriveFileID() {
+        return googleDriveFileId;
+    }
+
+    public void setGoogleDriveFileID(String googleDriveFileID) {
+        this.googleDriveFileId = googleDriveFileID;
     }
 }

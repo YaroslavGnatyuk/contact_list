@@ -12,6 +12,7 @@ import com.google.api.client.json.jackson2.JacksonFactory;
 import com.google.api.client.util.store.FileDataStoreFactory;
 import com.google.api.services.drive.Drive;
 import com.google.api.services.drive.DriveScopes;
+import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -19,6 +20,7 @@ import java.io.InputStreamReader;
 import java.util.Arrays;
 import java.util.List;
 
+@Component("googleDrive")
 public class MyGoogleDrive{
     public static final String ID_FOLDER_WITH_PHOTO = "0BzoryDRDGHoLdy1vZW5Wc0ZnbDA";
     public static final String MIME_TYPE_FOR_PHOTO = "image/jpeg";
@@ -42,7 +44,7 @@ public class MyGoogleDrive{
 
     /** Global instance of the scopes required by this quickstart.
      *
-     * If modifying these scopes, delete your previously saved credentials
+     * If modifying these scopes, deletePhoto your previously saved credentials
      * at ~/.credentials/drive-java-quickstart
      */
     private static final List<String> SCOPES =
