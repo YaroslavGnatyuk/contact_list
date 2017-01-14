@@ -83,6 +83,15 @@
             <artifactId>google-api-services-drive</artifactId>
             <version>v2-rev247-1.22.0</version>
         </dependency>
+
+        <!-- https://mvnrepository.com/artifact/com.aquafx-project/aquafx -->
+        <!--It improve apperance of javaFx app-->
+        <dependency>
+            <groupId>com.aquafx-project</groupId>
+            <artifactId>aquafx</artifactId>
+            <version>0.2</version>
+        </dependency>
+
     </dependencies>
 
     <build>

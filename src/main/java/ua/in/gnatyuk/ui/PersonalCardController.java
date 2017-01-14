@@ -1,5 +1,6 @@
 package ua.in.gnatyuk.ui;
 
+import com.aquafx_project.AquaFx;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
@@ -27,6 +28,8 @@ public class PersonalCardController {
     private Label email;
     @FXML
     private ImageView photo;
+
+
 
     @Autowired
     private MainController mainController;

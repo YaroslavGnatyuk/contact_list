@@ -1,5 +1,6 @@
 package ua.in.gnatyuk;
 
+import com.aquafx_project.AquaFx;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +29,9 @@ public class Application extends AbstractJavaFxApplicationSupport {
 
     @Override
     public void start(Stage stage) throws Exception {
+        AquaFx.style();
+        AquaFx.setEarthStyle();
+
         stage.setTitle(windowTitle);
         stage.setScene(new Scene(mainView.getView()));
         stage.setResizable(true);

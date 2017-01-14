@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import ua.in.gnatyuk.configuration.MyGoogleDriveServiceConfig;
 import ua.in.gnatyuk.repository.PhotoRepository;
 import ua.in.gnatyuk.repository.GoogleDrivePhotoRepositoryImpl;
 
@@ -18,7 +17,7 @@ import static junit.framework.TestCase.assertTrue;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ComponentScan("ua.in.gnatyuk")
-@ContextConfiguration(classes = {GoogleDrivePhotoRepositoryImpl.class, MyGoogleDriveServiceConfig.class})
+@ContextConfiguration(classes = {GoogleDrivePhotoRepositoryImpl.class})
 public class ApplicationTests {
 	@Autowired
 	private PhotoRepository photoRepository;
@@ -29,7 +28,6 @@ public class ApplicationTests {
 	public void uploadPhotoToMyGoogleDrive(){
 		File photo = new File("D:\\Books\\prj\\contact_list\\src\\main\\resources\\img\\" + photosName);
 		assertNotNull(photoRepository.uploadPhoto(photo));
-
 	}
 
 	@Ignore

@@ -59,9 +59,12 @@ public class GoogleDrivePhotoRepositoryImpl implements PhotoRepository {
     public java.io.File downloadPhoto(String photosId) {
         try {
             Drive drive = googleDrive.getDriveService();
+
             java.io.File tempFileForPhoto = java.io.File.createTempFile("photo","tmp");
-            FileOutputStream fileOutputStream = new FileOutputStream(tempFileForPhoto);
-            drive.files().get(photosId).executeMediaAndDownloadTo(fileOutputStream);
+            tempFileForPhoto.deleteOnExit();
+
+            FileOutputStream photoOutputStream = new FileOutputStream(tempFileForPhoto);
+            drive.files().get(photosId).executeMediaAndDownloadTo(photoOutputStream);
 
             return tempFileForPhoto;
         } catch (IOException e) {
