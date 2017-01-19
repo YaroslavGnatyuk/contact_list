@@ -12,6 +12,7 @@ import com.google.api.client.json.jackson2.JacksonFactory;
 import com.google.api.client.util.store.FileDataStoreFactory;
 import com.google.api.services.drive.Drive;
 import com.google.api.services.drive.DriveScopes;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
@@ -67,17 +68,20 @@ public class MyGoogleDrive{
      */
     public static Credential authorize() throws IOException {
         // Load client secrets.
-        InputStream in =
-                MyGoogleDrive.class.getResourceAsStream("/client_secret.json");
+
+        ClassPathResource resource = new ClassPathResource("/client_secret.json");
+        InputStream inputStream = resource.getInputStream();
+//        InputStream in =
+//                MyGoogleDrive.class.getResourceAsStream();
         GoogleClientSecrets clientSecrets =
-                GoogleClientSecrets.load(JSON_FACTORY, new InputStreamReader(in));
+                GoogleClientSecrets.load(JSON_FACTORY, new InputStreamReader(inputStream));
 
         // Build flow and trigger user authorization request.
         GoogleAuthorizationCodeFlow flow =
                 new GoogleAuthorizationCodeFlow.Builder(
                         HTTP_TRANSPORT, JSON_FACTORY, clientSecrets, SCOPES)
                         .setDataStoreFactory(DATA_STORE_FACTORY)
-                        .setAccessType("offline")
+                        .setAccessType("online")
                         .build();
         Credential credential = new AuthorizationCodeInstalledApp(
                 flow, new LocalServerReceiver()).authorize("user");

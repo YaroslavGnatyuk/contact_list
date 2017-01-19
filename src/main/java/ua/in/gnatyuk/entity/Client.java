@@ -3,16 +3,9 @@ package ua.in.gnatyuk.entity;
 import javax.persistence.*;
 import java.io.Serializable;
 
-/**
- * Date: 27.08.15
- * Time: 12:58
- *
- * @author Ruslan Molchanov (ruslanys@gmail.com)
- * @author http://mruslan.com
- */
 @Entity
-@Table
-public class Contact implements Serializable {
+@Table(name = "contact")
+public class Client implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,19 +21,19 @@ public class Contact implements Serializable {
     private String email;
 
     @Column(unique = true, name = "google_drive_file_id")
-    private String googleDriveFileId;
+    private String googleDrivePhotoId;
 
-    public Contact() {
+    public Client() {
     }
 
-    public Contact(String name, String phone, String email, String googleDriveFileID) {
+    public Client(String name, String phone, String email, String googleDriveFileID) {
         this.name = name;
         this.phone = phone;
         this.email = email;
-        this.googleDriveFileId = googleDriveFileID;
+        this.googleDrivePhotoId = googleDriveFileID;
     }
 
-    public Contact(String name, String phone, String email) {
+    public Client(String name, String phone, String email) {
         this.name = name;
         this.phone = phone;
         this.email = email;
@@ -79,10 +72,10 @@ public class Contact implements Serializable {
     }
 
     public String getGoogleDriveFileID() {
-        return googleDriveFileId;
+        return googleDrivePhotoId;
     }
 
     public void setGoogleDriveFileID(String googleDriveFileID) {
-        this.googleDriveFileId = googleDriveFileID;
+        this.googleDrivePhotoId = googleDriveFileID;
     }
 }

@@ -14,8 +14,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import ua.in.gnatyuk.configuration.ConfigurationControllers;
-import ua.in.gnatyuk.entity.Contact;
-import ua.in.gnatyuk.service.ContactService;
+import ua.in.gnatyuk.entity.Client;
+import ua.in.gnatyuk.service.ClientService;
 
 import javax.annotation.PostConstruct;
 import java.util.List;
@@ -25,7 +25,7 @@ public class MainController {
     private Logger log = LoggerFactory.getLogger(MainController.class);
 
     @Autowired
-    private ContactService contactService;
+    private ClientService clientService;
 
     @Autowired
     @Qualifier("personalCard")
@@ -33,12 +33,12 @@ public class MainController {
 
     private Stage personalCardStage;
 
-    ObservableList<Contact> getData() {
+    ObservableList<Client> getData() {
         return data;
     }
 
     @FXML
-    private TableView<Contact> table;
+    private TableView<Client> table;
     @FXML
     private TextField txtName;
     @FXML
@@ -46,7 +46,7 @@ public class MainController {
     @FXML
     private TextField txtEmail;
 
-    private ObservableList<Contact> data;
+    private ObservableList<Client> data;
 
     @FXML
     public void initialize() {
@@ -56,19 +56,19 @@ public class MainController {
     @PostConstruct
     public void init() {
 
-        List<Contact> contacts = contactService.findAll();
-        data = FXCollections.observableArrayList(contacts);
+        List<Client> clients = clientService.findAll();
+        data = FXCollections.observableArrayList(clients);
 
-        TableColumn<Contact, String> idColumn = new TableColumn<>("ID");
+        TableColumn<Client, String> idColumn = new TableColumn<>("ID");
         idColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
 
-        TableColumn<Contact, String> nameColumn = new TableColumn<>("Имя");
+        TableColumn<Client, String> nameColumn = new TableColumn<>("Имя");
         nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
 
-        TableColumn<Contact, String> phoneColumn = new TableColumn<>("Телефон");
+        TableColumn<Client, String> phoneColumn = new TableColumn<>("Телефон");
         phoneColumn.setCellValueFactory(new PropertyValueFactory<>("phone"));
 
-        TableColumn<Contact, String> emailColumn = new TableColumn<>("E-mail");
+        TableColumn<Client, String> emailColumn = new TableColumn<>("E-mail");
         emailColumn.setCellValueFactory(new PropertyValueFactory<>("email"));
 
         table.getColumns().setAll(idColumn, nameColumn, phoneColumn, emailColumn);
@@ -78,9 +78,9 @@ public class MainController {
 
     @FXML
     public void addContact() {
-        Contact contact = new Contact(txtName.getText(), txtPhone.getText(), txtEmail.getText());
-        contactService.save(contact);
-        data.add(contact);
+        Client client = new Client(txtName.getText(), txtPhone.getText(), txtEmail.getText());
+        clientService.save(client);
+        data.add(client);
 
         txtName.clear();
         txtPhone.clear();
@@ -89,8 +89,8 @@ public class MainController {
 
     @FXML
     public void openPersonalCard() {
-        Contact contact = table.getSelectionModel().getSelectedItem(); //I can get here NPE because the row can be empty in table
-        if (contact == null) {
+        Client client = table.getSelectionModel().getSelectedItem(); //I can get here NPE because the row can be empty in table
+        if (client == null) {
             return;
         }
 
@@ -99,17 +99,17 @@ public class MainController {
         if (personalCardStage == null) {
             personalCardStage = new Stage();
             personalCardStage.setScene(new Scene(personalCardView.getView()));
-            setupPersonalData(contact);
+            setupPersonalData(client);
             personalCardStage.show();
         } else {
-            setupPersonalData(contact);
+            setupPersonalData(client);
             personalCardStage.show();
         }
     }
 
-    private void setupPersonalData(Contact contact) throws NullPointerException {
+    private void setupPersonalData(Client client) throws NullPointerException {
         PersonalCardController personalCardController = (PersonalCardController) personalCardView.getController();
         personalCardController.setPersonalCard(personalCardStage);
-        personalCardController.setAllPersonalData(contact);
+        personalCardController.setAllPersonalData(client);
     }
 }

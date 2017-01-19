@@ -29,7 +29,6 @@ public class Application extends AbstractJavaFxApplicationSupport {
 
     @Override
     public void start(Stage stage) throws Exception {
-        AquaFx.style();
         AquaFx.setEarthStyle();
 
         stage.setTitle(windowTitle);

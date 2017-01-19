@@ -5,19 +5,23 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import ua.in.gnatyuk.repository.PhotoRepository;
 import ua.in.gnatyuk.repository.GoogleDrivePhotoRepositoryImpl;
+import ua.in.gnatyuk.repository.PhotoRepository;
+import ua.in.gnatyuk.utils.MyGoogleDrive;
 
 import java.io.File;
+import java.io.IOException;
 
 import static junit.framework.TestCase.assertNotNull;
 import static junit.framework.TestCase.assertTrue;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ComponentScan("ua.in.gnatyuk")
-@ContextConfiguration(classes = {GoogleDrivePhotoRepositoryImpl.class})
+@ContextConfiguration(classes = {GoogleDrivePhotoRepositoryImpl.class, MyGoogleDrive.class})
 public class ApplicationTests {
 	@Autowired
 	private PhotoRepository photoRepository;
@@ -26,7 +30,13 @@ public class ApplicationTests {
 //	@Ignore
 	@Test
 	public void uploadPhotoToMyGoogleDrive(){
-		File photo = new File("D:\\Books\\prj\\contact_list\\src\\main\\resources\\img\\" + photosName);
+		Resource resource = new ClassPathResource("/img/default_photo.jpg");
+		File photo = null;
+		try {
+			photo = resource.getFile();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		assertNotNull(photoRepository.uploadPhoto(photo));
 	}
 
@@ -43,7 +53,7 @@ public class ApplicationTests {
 		}
 	}
 
-	@Ignore
+//	@Ignore
 	@Test
 	public void deletePhoto(){
 		try {

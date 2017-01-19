@@ -1,6 +1,5 @@
 package ua.in.gnatyuk.ui;
 
-import com.aquafx_project.AquaFx;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
@@ -9,14 +8,10 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
-import org.springframework.core.io.Resource;
-import ua.in.gnatyuk.entity.Contact;
-import ua.in.gnatyuk.service.ContactService;
+import ua.in.gnatyuk.entity.Client;
+import ua.in.gnatyuk.service.ClientService;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
+import java.io.*;
 
 //ua.in.gnatyuk.ui.PersonalCardController
 public class PersonalCardController {
@@ -34,17 +29,17 @@ public class PersonalCardController {
     @Autowired
     private MainController mainController;
     @Autowired
-    private ContactService contactService;
+    private ClientService clientService;
 
     private Stage personalCard;
-    private Contact contact;
+    private Client client;
 
-    public void setAllPersonalData(Contact contact) {
-        this.contact = contact;
+    public void setAllPersonalData(Client client) {
+        this.client = client;
 
-        fullName.setText(contact.getName());
-        telephone.setText(contact.getPhone());
-        email.setText(contact.getEmail());
+        fullName.setText(client.getName());
+        telephone.setText(client.getPhone());
+        email.setText(client.getEmail());
         setImageToImageView();
 
     }
@@ -60,10 +55,10 @@ public class PersonalCardController {
 
     @FXML
     public void deleteContact() {
-        contactService.delete(contact);
-        mainController.getData().remove(contact);
-        if (contact.getGoogleDriveFileID() != null) {
-            contactService.deletePhoto(contact.getGoogleDriveFileID());
+        clientService.delete(client);
+        mainController.getData().remove(client);
+        if (client.getGoogleDriveFileID() != null) {
+            clientService.deletePhoto(client.getGoogleDriveFileID());
         }
         closePersonalCard();
     }
@@ -87,15 +82,15 @@ public class PersonalCardController {
         String fileExtension = fileForUpload.getName().split("\\.")[index];
         if (fileExtension.equals("jpeg") || fileExtension.equals("jpg")) {
             photoID = uploadPhoto(fileForUpload);
-            contact.setGoogleDriveFileID(photoID);
-            contactService.updateContact(contact);
+            client.setGoogleDriveFileID(photoID);
+            clientService.updateContact(client);
         }
 
         setImageToImageView();
     }
 
     private void setImageToImageView() {
-        String fileID = contact.getGoogleDriveFileID();
+        String fileID = client.getGoogleDriveFileID();
         if (fileID != null) {
             Image image = getContactPhoto(fileID);
             this.photo.setImage(image);
@@ -106,7 +101,7 @@ public class PersonalCardController {
     }
 
     private Image getContactPhoto(String fileID) {
-        File photo = contactService.downloadPhoto(fileID);
+        File photo = clientService.downloadPhoto(fileID);
 
         try {
             FileInputStream fileInputStream = new FileInputStream(photo);
@@ -120,9 +115,9 @@ public class PersonalCardController {
 
     private Image getDefaultPhoto() {
         try {
-            Resource resource = new ClassPathResource("/img/default_photo.jpg");
-            FileInputStream fileInputStream = new FileInputStream(resource.getFile());
-            return new Image(fileInputStream);
+            ClassPathResource resource = new ClassPathResource("/img/default_photo.jpg");
+            InputStream inputStream = resource.getInputStream();
+            return new Image(inputStream);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -134,11 +129,11 @@ public class PersonalCardController {
      * Method uploads file to repository and returns fileID
      **/
     private String uploadPhoto(File fileForUpload) {
-        if (contact.getGoogleDriveFileID() != null) {
-            contactService.deletePhoto(contact.getGoogleDriveFileID());
-            return contactService.uploadPhoto(fileForUpload);
+        if (client.getGoogleDriveFileID() != null) {
+            clientService.deletePhoto(client.getGoogleDriveFileID());
+            return clientService.uploadPhoto(fileForUpload);
         } else {
-            return contactService.uploadPhoto(fileForUpload);
+            return clientService.uploadPhoto(fileForUpload);
         }
     }
 }

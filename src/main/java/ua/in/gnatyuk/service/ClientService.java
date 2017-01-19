@@ -1,22 +1,22 @@
 package ua.in.gnatyuk.service;
 
-import ua.in.gnatyuk.entity.Contact;
+import ua.in.gnatyuk.entity.Client;
 
 import java.util.List;
 
-public interface ContactService {
+public interface ClientService {
 
-    Contact save(Contact contact);
+    Client save(Client client);
 
-    List<Contact> findAll();
+    List<Client> findAll();
 
     void deleteByID(long id);
 
-    void delete(Contact contact);
+    void delete(Client client);
 
-    Contact findOne(long id);
+    Client findOne(long id);
 
-    void updateContact(Contact contact);
+    void updateContact(Client client);
 
     String uploadPhoto(java.io.File photo);
 

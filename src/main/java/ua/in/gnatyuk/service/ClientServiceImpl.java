@@ -3,29 +3,29 @@ package ua.in.gnatyuk.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import ua.in.gnatyuk.entity.Contact;
-import ua.in.gnatyuk.repository.ContactRepository;
+import ua.in.gnatyuk.entity.Client;
+import ua.in.gnatyuk.repository.ClientRepository;
 import ua.in.gnatyuk.repository.PhotoRepository;
 
 import java.io.File;
 import java.util.List;
 
 @Service
-public class ContactServiceImpl implements ContactService {
+public class ClientServiceImpl implements ClientService {
     @Autowired
-    private ContactRepository personalDataRepository;
+    private ClientRepository personalDataRepository;
     @Autowired
     private PhotoRepository photoRepository;
 
     @Override
     @Transactional
-    public Contact save(Contact contact) {
-        return personalDataRepository.save(contact);
+    public Client save(Client client) {
+        return personalDataRepository.save(client);
     }
 
     @Override
     @Transactional(readOnly = true)
-    public List<Contact> findAll() {
+    public List<Client> findAll() {
         return personalDataRepository.findAll();
     }
 
@@ -37,20 +37,20 @@ public class ContactServiceImpl implements ContactService {
 
     @Override
     @Transactional
-    public void delete(Contact contact) {
-        personalDataRepository.delete(contact);
+    public void delete(Client client) {
+        personalDataRepository.delete(client);
     }
 
     @Override
     @Transactional(readOnly = true)
-    public Contact findOne(long id) {
+    public Client findOne(long id) {
         return personalDataRepository.findOne(id);
     }
 
     @Override
     @Transactional
-    public void updateContact(Contact contact) {
-        personalDataRepository.save(contact);
+    public void updateContact(Client client) {
+        personalDataRepository.save(client);
     }
 
     @Override
