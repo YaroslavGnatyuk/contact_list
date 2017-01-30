@@ -37,7 +37,7 @@ public class PersonalCardController {
     public void setAllPersonalData(Client client) {
         this.client = client;
 
-        fullName.setText(client.getName());
+        fullName.setText(client.getFirstName());
         telephone.setText(client.getPhone());
         email.setText(client.getEmail());
         setImageToImageView();
