@@ -1,6 +1,5 @@
-package ru.habrahabr;
+package ua.in.gnatyuk;
 
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,7 +39,7 @@ public class ApplicationTests {
 		assertNotNull(photoRepository.uploadPhoto(photo));
 	}
 
-	@Ignore
+//	@Ignore
 	@Test
 	public void downLoadPhoto(){
 		try {

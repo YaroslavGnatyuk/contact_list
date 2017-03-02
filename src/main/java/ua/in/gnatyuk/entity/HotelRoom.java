@@ -16,12 +16,12 @@ public class HotelRoom implements Serializable{
     @Column(name = "one_hour_cost")
     Float oneHourCost;
     @Column(name = "floor")
-    Byte floor;
+    Integer floor;
 
     public HotelRoom() {
     }
 
-    public HotelRoom(Integer roomNumber, String roomClass, Float oneHourCost, Byte floor) {
+    public HotelRoom(Integer roomNumber, String roomClass, Float oneHourCost, Integer floor) {
         this.roomNumber = roomNumber;
         this.roomClass = roomClass;
         this.oneHourCost = oneHourCost;
@@ -60,11 +60,11 @@ public class HotelRoom implements Serializable{
         this.oneHourCost = oneHourCost;
     }
 
-    public Byte getFloor() {
+    public Integer getFloor() {
         return floor;
     }
 
-    public void setFloor(Byte floor) {
+    public void setFloor(Integer floor) {
         this.floor = floor;
     }
 }

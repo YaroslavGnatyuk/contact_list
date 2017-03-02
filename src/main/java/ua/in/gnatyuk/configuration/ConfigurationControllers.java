@@ -11,7 +11,6 @@ import java.io.IOException;
 import java.io.InputStream;
 
 @Configuration
-
 public class ConfigurationControllers {
 
     @Bean(name = "mainView")
