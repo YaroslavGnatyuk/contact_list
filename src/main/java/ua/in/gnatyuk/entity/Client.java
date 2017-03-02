@@ -40,6 +40,9 @@ public class Client implements Serializable {
     @Column(unique = true, name = "google_drive_file_id")
     private String googleDrivePhotoId;
 
+    public Client() {
+    }
+
     public Client(String firstName, String lastName, String passport, Date dob, String phone, String email, Integer amountOfVisits, Double totalSpent, String googleDrivePhotoId) {
         this.firstName = firstName;
         this.lastName = lastName;
