@@ -8,7 +8,7 @@ import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import ua.in.gnatyuk.repository.GoogleDrivePhotoRepositoryImpl;
+import ua.in.gnatyuk.repository.impl.GoogleDrivePhotoRepositoryImpl;
 import ua.in.gnatyuk.repository.PhotoRepository;
 import ua.in.gnatyuk.utils.MyGoogleDrive;
 

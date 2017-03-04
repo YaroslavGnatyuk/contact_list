@@ -1,4 +1,4 @@
-package ua.in.gnatyuk.repository;
+package ua.in.gnatyuk.repository.impl;
 
 import com.google.api.client.http.FileContent;
 import com.google.api.services.drive.Drive;
@@ -7,6 +7,7 @@ import com.google.api.services.drive.model.ParentReference;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
+import ua.in.gnatyuk.repository.PhotoRepository;
 import ua.in.gnatyuk.utils.MyGoogleDrive;
 
 import java.io.FileOutputStream;
