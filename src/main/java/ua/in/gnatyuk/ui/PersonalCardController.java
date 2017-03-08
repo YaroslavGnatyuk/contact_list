@@ -55,6 +55,7 @@ public class PersonalCardController {
 
     @FXML
     public void deleteContact() {
+        System.out.println("Delete!");
         clientService.delete(client);
         mainController.getData().remove(client);
         if (client.getGoogleDriveFileID() != null) {

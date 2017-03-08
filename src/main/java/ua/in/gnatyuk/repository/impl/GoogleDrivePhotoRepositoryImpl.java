@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 import ua.in.gnatyuk.repository.PhotoRepository;
-import ua.in.gnatyuk.utils.MyGoogleDrive;
+import ua.in.gnatyuk.entity.MyGoogleDrive;
 
 import java.io.FileOutputStream;
 import java.io.IOException;

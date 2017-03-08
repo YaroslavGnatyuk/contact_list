@@ -1,5 +1,6 @@
-package ua.in.gnatyuk;
+package ua.in.gnatyuk.repository;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,8 +10,7 @@ import org.springframework.core.io.Resource;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import ua.in.gnatyuk.repository.impl.GoogleDrivePhotoRepositoryImpl;
-import ua.in.gnatyuk.repository.PhotoRepository;
-import ua.in.gnatyuk.utils.MyGoogleDrive;
+import ua.in.gnatyuk.entity.MyGoogleDrive;
 
 import java.io.File;
 import java.io.IOException;
@@ -21,7 +21,7 @@ import static junit.framework.TestCase.assertTrue;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ComponentScan("ua.in.gnatyuk")
 @ContextConfiguration(classes = {GoogleDrivePhotoRepositoryImpl.class, MyGoogleDrive.class})
-public class ApplicationTests {
+public class PhotoRepositoryTest {
 	@Autowired
 	private PhotoRepository photoRepository;
 	private String photosName = "default_photo.jpg";
@@ -52,7 +52,7 @@ public class ApplicationTests {
 		}
 	}
 
-//	@Ignore
+	@Ignore
 	@Test
 	public void deletePhoto(){
 		try {
