@@ -11,7 +11,7 @@ public class Client implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Integer id;
 
     @Column(name = "first_name")
     private String firstName;
@@ -75,16 +75,24 @@ public class Client implements Serializable {
         return googleDrivePhotoId;
     }
 
-    public Long getId() {
-        return id;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
-    public String getFirstName() {
-        return firstName;
+    public void setGoogleDrivePhotoId(String googleDrivePhotoId) {
+        this.googleDrivePhotoId = googleDrivePhotoId;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public String getGoogleDrivePhotoId() {
+        return googleDrivePhotoId;
     }
 
     public void setFirstName(String firstName) {

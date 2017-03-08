@@ -16,7 +16,7 @@ import ua.in.gnatyuk.configuration.ConfigurationControllers;
 @ComponentScan("ua.in.gnatyuk")
 public class Application extends AbstractJavaFxApplicationSupport {
 
-    @Value("${ui.title:JavaFX приложение}")//
+    @Value("${ui.title:JavaFX приложение}")
     private String windowTitle;
 
     @Qualifier("mainView")

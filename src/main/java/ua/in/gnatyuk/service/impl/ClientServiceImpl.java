@@ -1,4 +1,4 @@
-package ua.in.gnatyuk.service;
+package ua.in.gnatyuk.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -6,6 +6,7 @@ import org.springframework.transaction.annotation.Transactional;
 import ua.in.gnatyuk.entity.Client;
 import ua.in.gnatyuk.repository.ClientRepository;
 import ua.in.gnatyuk.repository.PhotoRepository;
+import ua.in.gnatyuk.service.ClientService;
 
 import java.io.File;
 import java.util.List;

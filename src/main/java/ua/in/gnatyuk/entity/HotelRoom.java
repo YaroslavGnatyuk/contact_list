@@ -8,31 +8,31 @@ import java.io.Serializable;
 public class HotelRoom implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Integer id;
     @Column(name = "room_number")
     Integer roomNumber;
     @Column(name = "room_class")// TODO: 3/1/17 I want to use here enumeration
     String roomClass;
     @Column(name = "one_hour_cost")
-    Float oneHourCost;
+    Double oneHourCost;
     @Column(name = "floor")
     Integer floor;
 
     public HotelRoom() {
     }
 
-    public HotelRoom(Integer roomNumber, String roomClass, Float oneHourCost, Integer floor) {
+    public HotelRoom(Integer roomNumber, String roomClass, Double oneHourCost, Integer floor) {
         this.roomNumber = roomNumber;
         this.roomClass = roomClass;
         this.oneHourCost = oneHourCost;
         this.floor = floor;
     }
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -52,11 +52,11 @@ public class HotelRoom implements Serializable{
         this.roomClass = roomClass;
     }
 
-    public Float getOneHourCost() {
+    public Double getOneHourCost() {
         return oneHourCost;
     }
 
-    public void setOneHourCost(Float oneHourCost) {
+    public void setOneHourCost(Double oneHourCost) {
         this.oneHourCost = oneHourCost;
     }
 
@@ -66,5 +66,16 @@ public class HotelRoom implements Serializable{
 
     public void setFloor(Integer floor) {
         this.floor = floor;
+    }
+
+    @Override
+    public String toString() {
+        return "HotelRoom{" +
+                "id=" + id +
+                ", roomNumber=" + roomNumber +
+                ", roomClass='" + roomClass + '\'' +
+                ", oneHourCost=" + oneHourCost +
+                ", floor=" + floor +
+                '}';
     }
 }
