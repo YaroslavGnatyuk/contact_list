@@ -30,7 +30,7 @@ public class HotelRoomReservationRepositoryTest {
         hotelRoom = hotelRoomRepository.save(hotelRoom);
 
         Client client = new Client("qqq", "www", "eee");
-        client = clientRepository.save(client);
+        clientRepository.save(client);
 
         int rentPeriod = 10;
         Double prepaid = 500.00;

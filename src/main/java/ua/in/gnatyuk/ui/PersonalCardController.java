@@ -41,7 +41,6 @@ public class PersonalCardController {
         telephone.setText(client.getPhone());
         email.setText(client.getEmail());
         setImageToImageView();
-
     }
 
     public void setPersonalCard(Stage personalCard) {
@@ -54,8 +53,9 @@ public class PersonalCardController {
     }
 
     @FXML
+    //todo add checking all repositories (FinishedRent, CurrentRent and HotelRoomReservation)
+    //todo if they contains records with this client they should delete this record
     public void deleteContact() {
-        System.out.println("Delete!");
         clientService.delete(client);
         mainController.getData().remove(client);
         if (client.getGoogleDriveFileID() != null) {

@@ -6,7 +6,7 @@ import java.sql.Timestamp;
 
 @Entity
 @Table(name = "current_rent")
-public class CurrentRent implements Serializable{
+public class CurrentRent implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -18,7 +18,6 @@ public class CurrentRent implements Serializable{
     @OneToOne
     @JoinColumn(name = "client")
     private Client client;
-
 
     @Column(name = "begin_rent")
     private Timestamp beginRent;

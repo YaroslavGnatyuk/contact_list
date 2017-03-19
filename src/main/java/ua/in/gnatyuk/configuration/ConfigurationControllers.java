@@ -15,7 +15,7 @@ public class ConfigurationControllers {
 
     @Bean(name = "mainView")
     public View getMainView() throws IOException {
-        return loadView("fxml/main.fxml");
+        return loadView("fxml/manipulate_clients_cards.fxml");
     }
 
     @Bean(name = "personalCard")

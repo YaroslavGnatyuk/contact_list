@@ -23,10 +23,6 @@ public class Application extends AbstractJavaFxApplicationSupport {
     @Autowired
     private ConfigurationControllers.View mainView;
 
-    @Autowired
-    @Qualifier("personalCard")
-    ConfigurationControllers.View personalCard;
-
     @Override
     public void start(Stage stage) throws Exception {
         AquaFx.setEarthStyle();
